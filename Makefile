@@ -6,6 +6,8 @@ CXXFLAGS := -std=c++11
 srcfiles := $(shell find . -name "*.cpp")
 objects  := $(patsubst %.cpp, %.o, $(srcfiles))
 
+LDLIBS := -lpthread
+
 all: $(appname)
 
 $(appname): $(objects)
