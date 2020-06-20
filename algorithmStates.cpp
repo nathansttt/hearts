@@ -25,10 +25,6 @@ void minimaxState::Print(int val) const
 	printf("depth %d/%d, a=%1.2f, b=%1.2f ans=%1.2f, next=%d\n", depth, depthRemaining, a, b, result, next);
 }
 
-#if !defined(isnan)
-extern "C" int isnan (double);
-#endif
-
 bool minimaxState::equals(State *val)
 {
 	minimaxState *mms = (minimaxState *)val;
