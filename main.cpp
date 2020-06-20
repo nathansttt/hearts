@@ -58,4 +58,12 @@ int main(int argc, char **argv)
 	g->setPassDir(0);
 		
 	game.Play();
+
+
+	// clean up memory
+	for (int x = 0; x < 4; x++)
+		delete g->getPlayer(x)->getAlgorithm();
+	g->deletePlayers();
+	delete g;
+	g = 0;
 }
