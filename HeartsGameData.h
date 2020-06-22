@@ -13,6 +13,8 @@
 #ifndef HEARTSGAMEDATA_H
 #define HEARTSGAMEDATA_H
 
+namespace hearts {
+
 enum {
 	kFileError = -2,
 	kNoData = -1
@@ -54,5 +56,7 @@ public:
 
 card GetCardPlay(int which, HeartsGameState *g);
 void prepareToTransmit(std::string &str);
+
+} // namespace hearts
 
 #endif

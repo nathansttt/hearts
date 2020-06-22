@@ -14,6 +14,8 @@
 #ifndef CARDPROBDATA_H
 #define CARDPROBDATA_H
 
+namespace hearts {
+
 class cardProbData {
 public:
 	cardProbData(char *file = 0);
@@ -38,5 +40,7 @@ public:
 	// prior from data; before pass counts of lengths [4][13]
 	std::vector<std::vector<uint32_t> > suitLengthsPrior;
 };
+
+} // namespace hearts
 
 #endif

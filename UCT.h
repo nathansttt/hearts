@@ -13,6 +13,8 @@
 #include "Algorithm.h"
 #include "algorithmStates.h"
 
+namespace hearts {
+
 class UCTNode {
 public:
 	UCTNode()
@@ -95,5 +97,7 @@ protected:
 	std::vector<UCTNode> tree;
 	double epsilon;
 };
+
+} // namespace hearts
 
 #endif

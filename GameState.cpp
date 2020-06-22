@@ -5,6 +5,8 @@
 #include "GameState.h"
 #include "Player.h"
 
+namespace hearts {
+
 //#define min(x, y) (((x)>(y))?(y):(x))
 //#define max(x, y) (((x)<(y))?(y):(x))
 //#define VERIFYHASH 0
@@ -203,3 +205,4 @@ void GameState::UndoMove(Move *move)
 bool GameState::Done() const
 { printf("Can't call virtual GS::Done\n"); exit(1); return 0; }
 
+} // namespace hearts

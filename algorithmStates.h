@@ -4,6 +4,8 @@
 #ifndef ALGORITHMSTATES_H
 #define ALGORITHMSTATES_H
 
+namespace hearts {
+
 class LimitedEvalPlayer;
 
 /*************** states ********************/
@@ -100,5 +102,6 @@ public:
 	}
 };
 
+} // namespace hearts
 
 #endif

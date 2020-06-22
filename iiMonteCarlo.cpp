@@ -14,6 +14,9 @@
 #ifdef __MAC__
 //#include "Diagnostics.h"
 #endif
+
+namespace hearts {
+
 #define MAXMOVES 52
 #define _PRINT_ 0
 //#define min(x, y) ((x)<(y)?(x):(y))
@@ -663,3 +666,5 @@ void iiMonteCarlo::NormalizeProbs(std::vector<double> &pr)
 			pr[x] += pr[x-1];
 	}
 }
+
+} // namespace hearts

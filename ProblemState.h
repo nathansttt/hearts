@@ -20,6 +20,8 @@
  *
  */
 
+namespace hearts {
+
 class ProblemState {
  public:
 	ProblemState();
@@ -46,5 +48,6 @@ class ProblemState {
 	Player *searchAgent;
 };
 
+} // namespace hearts
 
 #endif

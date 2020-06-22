@@ -9,6 +9,7 @@
 #include "ProblemState.h"
 #include "States.h"
 
+namespace hearts {
 
 const double INF  =  999999999999999.9;
 const double NINF = -999999999999999.9;
@@ -101,6 +102,6 @@ protected:
 	Game *game;
 };
 
+} // namespace hearts
 
 #endif
-

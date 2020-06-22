@@ -3,6 +3,8 @@
 #ifndef _HASH_H
 #define _HASH_H
 
+namespace hearts {
+
 extern int creationCounter;
 
 class State {
@@ -46,5 +48,7 @@ class HashTable {
   int iterIndex;
   HNode *iterNode;
 };
+
+} // namespace hearts
 
 #endif

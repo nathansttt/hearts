@@ -49,6 +49,8 @@
 
 #include "mt_random.h"
 
+namespace hearts {
+
 const int mt_random::NN = 624;
 const int mt_random::MM = 397;
 const uint32_t mt_random::MATRIX_A = 0x9908b0dfUL; /* constant vector a */
@@ -165,3 +167,5 @@ uint32_t mt_random::ranged_long(uint32_t minimum, uint32_t maximum)
 		return minimum + (uint32_t)normalized;
 	}
 }
+
+} // namespace hearts

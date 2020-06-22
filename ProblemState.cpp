@@ -4,6 +4,8 @@
 #include "ProblemState.h"
 #include "Player.h"
 
+namespace hearts {
+
 //#define min(x, y) (((x)>(y))?(y):(x))
 //#define max(x, y) (((x)<(y))?(y):(x))
 #define VERIFYHASH 0
@@ -53,3 +55,4 @@ void ProblemState::Print(int val) const
 bool ProblemState::Done() const
 { printf("Can't call virtual PS::Done\n"); exit(1); return 0; }
 
+} // namespace hearts

@@ -14,6 +14,8 @@
 #ifndef HEARTSGAMEHISTORIES_H
 #define HEARTSGAMEHISTORIES_H
 
+namespace hearts {
+
 class SingleHandHistory {
 public:
 	SingleHandHistory(FILE *f);
@@ -79,5 +81,7 @@ private:
 };
 
 void addNum(std::string &str, int num, bool first = true);
+
+} // namespace hearts
 
 #endif

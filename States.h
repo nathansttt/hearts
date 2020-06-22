@@ -6,6 +6,8 @@
 #ifndef STATES_H
 #define STATES_H
 
+namespace hearts {
+
 class Player;
 class Algorithm;
 class GameState;
@@ -91,5 +93,7 @@ class HashState : public State {
 	gameHashState *ghs; // contains a game state (probably compressed)
 	void Print(int val = 0) const;
 };
+
+} // namespace hearts
 
 #endif

@@ -1,5 +1,7 @@
 #include "States.h"
 
+namespace hearts {
+
 //#define RANDOMIZEMOVE
 
 Move::~Move()
@@ -103,3 +105,4 @@ bool HashState::equals(State *val)
 	return false;
 }
 
+} // namespace hearts

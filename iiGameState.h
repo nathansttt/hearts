@@ -15,6 +15,8 @@
 // else special. Is the existing framework suitable for those, or do I need to add
 // something more like this framework?
 
+namespace hearts {
+
 class iiGameState {
 public:
 	iiGameState();
@@ -28,6 +30,6 @@ public:
 	virtual const char *GetName() = 0;
 };
 
+} // namespace hearts
 
 #endif
-

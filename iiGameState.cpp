@@ -1,5 +1,7 @@
 #include "iiGameState.h"
 
+namespace hearts {
+
 iiGameState::iiGameState()
 {
 }
@@ -24,3 +26,5 @@ void iiGameState::getGameStates(int count, std::vector<GameState *> &states, std
 	for (int x = 0; x < count; x++)
 		prob[x]/=sum;
 }
+
+} // namespace hearts

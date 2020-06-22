@@ -3,6 +3,8 @@
 #include "fpUtil.h"
 #include "HeartsGameHistories.h"
 
+namespace hearts {
+
 uint64_t getFullDeck()
 {
 	return ((uint64_t)0x1FFF1FFF<<32)+0x1FFF1FFF;
@@ -3640,3 +3642,5 @@ GameState *simpleIIHeartsState::getGameState(double &prob)
 	//printf("Set up new GameSate with %d to move\n", cgs->getNextPlayerNum());
 	return cgs;
 }
+
+} // namespace hearts

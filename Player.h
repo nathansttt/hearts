@@ -6,6 +6,8 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
+namespace hearts {
+
 // return from rankMove if we don't want this move generated
 // (usually if the optional flag is set)
 enum {
@@ -124,5 +126,6 @@ private:
 	historyState() {}
 };
 
+} // namespace hearts
 
 #endif

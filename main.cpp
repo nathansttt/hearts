@@ -3,6 +3,8 @@
 #include "Hearts.h"
 #include "iiMonteCarlo.h"
 
+using namespace hearts;
+
 int main(int argc, char **argv)
 {
 	int sims[3] = {1000, 10000, 100000};
