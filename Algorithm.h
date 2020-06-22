@@ -5,6 +5,8 @@
 #ifndef _ALGORITHM_H
 #define _ALGORITHM_H
 
+namespace hearts {
+
 class returnValue;
 class Player;
 
@@ -146,5 +148,7 @@ private:
 
 	returnValue *returnValueList;
 };
+
+} // namespace hearts
 
 #endif

@@ -28,6 +28,8 @@
 #include <stdint.h>
 #include <cstring>
 
+namespace hearts {
+
 Timer::Timer()
 {
 	elapsedTime = 0;
@@ -105,3 +107,5 @@ double Timer::EndTimer()
 	return elapsedTime;
 #endif
 }
+
+} // namespace hearts

@@ -9,6 +9,8 @@
 
 #include "HeartsGameData.h"
 
+namespace hearts {
+
 card GetCardPlay(int which, HeartsGameState *g)
 {
 	for (int x = 0; x < 64; x++)
@@ -54,3 +56,5 @@ int HeartsGameData::GetLastScore(int who)
 //		//iterator insert(iterator pos, const T& x);
 //	}
 //}
+
+} // namespace hearts

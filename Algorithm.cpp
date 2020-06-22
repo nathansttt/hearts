@@ -5,6 +5,8 @@
 #include <assert.h>
 #include "Timer.h"
 
+namespace hearts {
+
 static void my_nothing_error(const char *fmt, ...) {}
 
 //#define LOG if (1) printf
@@ -544,3 +546,5 @@ void Algorithm::freeReturnValue(returnValue *v)
 		returnValueList = v;
 	}
 }
+
+} // namespace hearts

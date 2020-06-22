@@ -1,5 +1,7 @@
 #include "Game.h"
 
+namespace hearts {
+
 const bool logMoves = true;
 
 Game::Game(GameState *gs)
@@ -237,3 +239,5 @@ double Game::score(int who)
 {
 	return theGame->gameScore[who];
 }
+
+} // namespace hearts

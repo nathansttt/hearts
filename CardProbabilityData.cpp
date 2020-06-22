@@ -9,6 +9,8 @@
 
 #include "CardProbabilityData.h"
 
+namespace hearts {
+
 cardProbData::cardProbData(char *file)
 {
 	probGivenLead.resize(64);
@@ -132,3 +134,5 @@ void cardProbData::load(char *file)
 
 	fclose(f);
 }
+
+} // namespace hearts

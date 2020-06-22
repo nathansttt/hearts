@@ -1,6 +1,8 @@
 #include "Player.h"
 //#include "algorithmStates.h"
 
+namespace hearts {
+
 //HashTable *Player::historyTable = 0;
 
 Player::Player(Algorithm *alg)
@@ -242,3 +244,5 @@ void Player::cutoffEvals(std::vector<double> &values)
 	for (unsigned int x = 0; x < g->getNumPlayers(); x++)
 		values.push_back(cutoffEval(x));
 }
+
+} // namespace hearts

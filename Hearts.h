@@ -10,6 +10,8 @@
 #ifndef HEARTS_H
 #define HEARTS_H
 
+namespace hearts {
+
 enum tPassDir { kLeftDir=1, kRightDir=-1, kAcrossDir=2, kHold=0 };
 
 enum {
@@ -289,5 +291,7 @@ public:
 //	virtual void selectPassCards(int dir, card &a, card &b, card &c);
 //private:
 //};
+
+} // namespace hearts
 
 #endif

@@ -11,6 +11,8 @@
 #ifndef CARDGAMESTATE_H
 #define CARDGAMESTATE_H
 
+namespace hearts {
+
 //#define min(x, y) (((x)>(y))?(y):(x))
 //#define max(x, y) (((x)<(y))?(y):(x))
 
@@ -398,6 +400,8 @@ public:
 	virtual Move *translateMoveUndo(GameState *g, Move *m) { return m->clone(g); }
 private:
 };
+
+} // namespace hearts
 
 #endif
 

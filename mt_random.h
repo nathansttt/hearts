@@ -4,6 +4,8 @@
 #include <vector>
 #include "stdint.h"
 
+namespace hearts {
+
 /* Period parameters */  
 #define NN_SIZE 624
 //#define MM 397
@@ -32,5 +34,7 @@ class mt_random {
 	//std::vector<uint32_t> mt; /* the array for the state vector  */
 	int mti;
 };
+
+} // namespace hearts
 
 #endif

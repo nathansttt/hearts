@@ -9,6 +9,7 @@
 
 #include "HeartsGameHistories.h"
 
+namespace hearts {
 
 SingleGameHistory::SingleGameHistory(HeartsGameState *g)
 {
@@ -550,3 +551,5 @@ void addNum(std::string &str, int num, bool first)
 	addNum(str, num/10, false);
 	str += ('0'+(num%10));
 }
+
+} // namespace hearts

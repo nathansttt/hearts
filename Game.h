@@ -5,6 +5,8 @@
 #ifndef _GAME_H_
 #define _GAME_H_
 
+namespace hearts {
+
 class Game {
  public:
 	Game(GameState *gs);
@@ -35,6 +37,6 @@ protected:
 	GameState *theGame;
 };
 
+} // namespace hearts
+
 #endif
-
-

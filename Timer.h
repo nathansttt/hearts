@@ -35,6 +35,8 @@
 #include <sys/time.h>
 #endif
 
+namespace hearts {
+
 #ifndef OS_MAC
 //#define TIMER_USE_CYCLE_COUNTER
 #endif
@@ -88,5 +90,7 @@ public:
 	double GetElapsedTime(){return elapsedTime;}
 
 };
+
+} // namespace hearts
 
 #endif

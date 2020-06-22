@@ -6,6 +6,7 @@
 #include "hash.h"
 
 using namespace std;
+namespace hearts {
 
 int creationCounter;
 
@@ -236,3 +237,5 @@ void HashTable::PrintStats() const
 
   //  delete [] count;
 }
+
+} // namespace hearts

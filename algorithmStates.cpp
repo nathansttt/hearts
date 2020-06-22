@@ -2,6 +2,8 @@
 #include "algorithmStates.h"
 //#include "LimitedEvalPlayer.h"
 
+namespace hearts {
+
 //#define min(x, y) (((x)>(y))?(y):(x))
 //#define max(x, y) (((x)<(y))?(y):(x))
 
@@ -143,3 +145,5 @@ void outcomePDF::Print(int verbose) const
 	if (m) m->Print(1);
 	printf("\n");
 }
+
+} // namespace hearts

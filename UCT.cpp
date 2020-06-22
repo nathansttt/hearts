@@ -13,6 +13,8 @@
 #include <string>
 #include <sstream>
 
+namespace hearts {
+
 const int debugState = 0;
 static bool verbose = false;
 
@@ -563,3 +565,4 @@ void UCT::PrintTreeStats()
 	}
 }
 
+} // namespace hearts

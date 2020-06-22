@@ -6,6 +6,8 @@
 #include "Diagnostics.h"
 #endif
 
+namespace hearts {
+
 //#define _PRINT_
 
 static unsigned long randPoints[4][32] =
@@ -1724,6 +1726,8 @@ bool cardHashState::equals(State *val)
 	*/
 	return 1;
 }
+
+} // namespace hearts
 
 /*
 cardPartition::cardPartition(GameState *g, double skor, double d)

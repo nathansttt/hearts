@@ -13,6 +13,8 @@
 #ifndef fpUtil_H
 #define fpUtil_H
 
+namespace hearts {
+
 //// Somehow DBL_MAX is not defined under Linux?
 //#ifndef OS_MAC
 //static const double DBL_MAX = 1.79769313486231500e+308;    // DBL_MAX for non Mac OS
@@ -32,5 +34,6 @@ inline bool fgreater(float a, float b) { return (a > b + TOLERANCE_F); }
 inline bool fequal(float a, float b)
 { return (a > b - TOLERANCE_F) && (a < b+TOLERANCE_F); }
 
+} // namespace hearts
 
 #endif

@@ -10,6 +10,8 @@
 #ifndef iiMonteCarlo_h
 #define iiMonteCarlo_h
 
+namespace hearts {
+
 class threadModel {
 	public:
 		Algorithm *alg;
@@ -59,5 +61,7 @@ OSStatus doThreadedModel(void *data);
 #else
 void *doThreadedModel(void *data);
 #endif
+
+} // namespace hearts
 
 #endif
