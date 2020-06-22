@@ -12,3 +12,12 @@ number of simulations used.
 
 The repository does not contain the full update history of the software,
 but it began development in 1997-1998.
+
+NOTE: This project is being made publicly available for research purposes.
+
+The code is being partially integrated into OpenSpiel:
+https://github.com/deepmind/open_spiel
+
+We are working on a paper documenting where this source came from for citation
+purposes. You can contact Nathan Sturtevant for more information on this if
+needed.
