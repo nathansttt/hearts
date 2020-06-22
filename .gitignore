@@ -3,6 +3,7 @@
 
 # Prerequisites
 *.d
+*.depend
 
 # Compiled Object files
 *.slo
