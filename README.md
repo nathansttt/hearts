@@ -2,6 +2,8 @@
 PIMC MCTS Hearts Player
 Nathan Sturtevant
 
+This software is provided under the GNU General Public License v3.0
+
 This is the historical Hearts program that I developed as part of my PhD
 thesis, and in subsequent years. I've extraced here the basic files needed
 to compile and run players against each other with basic/reasonable settings.
@@ -13,9 +15,8 @@ number of simulations used.
 The repository does not contain the full update history of the software,
 but it began development in 1997-1998.
 
-NOTE: This project is being made publicly available for research purposes.
-
-The code is being partially integrated into OpenSpiel:
+NOTE: This project is being made publicly available primarily for research
+purposes. The code is also being partially into OpenSpiel:
 https://github.com/deepmind/open_spiel
 
 We are working on a paper documenting where this source came from for citation
