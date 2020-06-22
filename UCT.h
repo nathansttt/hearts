@@ -12,7 +12,6 @@
 
 #include "Algorithm.h"
 #include "algorithmStates.h"
-#include <ext/hash_map>
 
 class UCTNode {
 public:

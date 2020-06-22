@@ -57,6 +57,7 @@ Algorithm::Algorithm(const Algorithm& a)
 	useNODELIMIT = a.useNODELIMIT;
 	useTIMELIMIT = a.useTIMELIMIT;
 	useTHREADS = a.useTHREADS;
+	useAFTERSTATES = a.useAFTERSTATES;
 	SEARCHDEPTHLIMIT = a.SEARCHDEPTHLIMIT;
 	startDepth = a.startDepth;
 	SEARCHTIMELIMIT = a.SEARCHTIMELIMIT;
