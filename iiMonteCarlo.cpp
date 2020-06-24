@@ -354,7 +354,9 @@ returnValue *iiMonteCarlo::CombinedAnalyze(GameState *g, std::vector<returnValue
 	{
 		for (unsigned int x = 0; x < probs.size(); x++)
 			probs[x]/=sum;
+#if _PRINT_
 		printf("Normalizing probabilities!\n");
+#endif
 	}
 	sum = 0;
 	for (int x = 0; x < MAXMOVES; x++)
@@ -463,7 +465,9 @@ Move *iiMonteCarlo::Combine(GameState *g, std::vector<returnValue *> &v, int whi
 	{
 		for (unsigned int x = 0; x < probs.size(); x++)
 			probs[x]/=sum;
+#if _PRINT_
 		printf("Normalizing probabilities!\n");
+#endif
 	}
 	
 	for (int x = 0; x < MAXMOVES; x++)
@@ -540,8 +544,10 @@ Move *iiMonteCarlo::Combine(GameState *g, std::vector<returnValue *> &v, int whi
 	// make best move
 	int ties = 1;
 	// now choose which move to make
+#if _PRINT_
 	if (dr == kMaxWeighted)
 		printf("Using kMaxWeighted\n");
+#endif
 	for (int x = 1; x < MAXMOVES; x++)
 	{
 		if (val[x])
