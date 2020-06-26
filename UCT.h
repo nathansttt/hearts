@@ -12,6 +12,7 @@
 
 #include "Algorithm.h"
 #include "algorithmStates.h"
+#include <string>
 
 namespace hearts {
 
@@ -88,7 +89,8 @@ protected:
 
 	UCTModule *pm;
 	mt_random rand;
-	char name[64];
+	//char name[64];
+	std::string name;
 	int currTreeLoc;
 	int numSamples, currentSample, switchLimit;
 	double C1, C2;

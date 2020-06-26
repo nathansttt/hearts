@@ -20,7 +20,7 @@ static bool verbose = false;
 
 UCT::UCT(int numRuns, double cval1, double cval2)
 {
-	sprintf(name, "UCT_N-%d_C1-%1.3f_C2-%1.3f", numRuns, cval1, cval2);
+	//sprintf(name, "UCT_N-%d_C1-%1.3f_C2-%1.3f", numRuns, cval1, cval2);
 	numSamples = numRuns;
 	currTreeLoc = -1;
 	switchLimit = -1;
@@ -36,7 +36,7 @@ UCT::UCT(int numRuns, double cval1, double cval2)
 
 UCT::UCT(int numRuns, int crossOver, double cval1, double cval2)
 {
-	sprintf(name, "UCT_N-%d_S-%d_C1-%1.3f_C2-%1.3f", numRuns, crossOver, cval1, cval2);
+	//sprintf(name, "UCT_N-%d_S-%d_C1-%1.3f_C2-%1.3f", numRuns, crossOver, cval1, cval2);
 	numSamples = numRuns;
 	currTreeLoc = -1;
 	switchLimit = crossOver;
@@ -52,7 +52,8 @@ UCT::UCT(int numRuns, int crossOver, double cval1, double cval2)
 
 UCT::UCT(int numRuns, double cval)
 {
-	sprintf(name, "UCT_N-%d_C-%1.3f", numRuns, cval);
+	//sprintf(name, "UCT_N-%d_C-%1.3f", numRuns, cval);
+	//printf("%s\n", name);
 	numSamples = numRuns;
 	currTreeLoc = -1;
 	C1 = C2 = cval;
@@ -63,11 +64,13 @@ UCT::UCT(int numRuns, double cval)
 	HH = false;
 	rand.srand(time(0));
 	verboseMoves = false;
+	//printf("%s\n", getName());
 }
 
 UCT::UCT(char *n, int numRuns, double cval)
 {
-	strncpy(name, n, 64);
+	name = n;
+	//strncpy(name, n, 64);
 	numSamples = numRuns;
 	currTreeLoc = -1;
 	C1 = C2 = cval;
@@ -84,7 +87,7 @@ const char *UCT::getName()
 {
 	std::stringstream out;
 	out.clear();
-	out.str(std::string());
+	//out.str(std::string());
 
 	if (numSamples == -1)
 		out << "UCT_N-e" << getSearchNodeLimit();
@@ -102,7 +105,8 @@ const char *UCT::getName()
 //	if (HH)
 //		out << "_HH";
 
-	return out.str().c_str();
+	name = out.str();
+	return name.c_str();
 	//	if (pm == 0)
 //	{
 //		if (C1 == C2)
@@ -160,9 +164,6 @@ void UCT::setPlayoutModule(UCTModule *m)
 void UCT::setEpsilonPlayout(double v)
 {
 	epsilon = v;
-	if (v == 0)
-		name[0] = 'U';
-	else name[0] = 'u';
 }
 
 double UCT::GetC(GameState *g, int parent, int child)

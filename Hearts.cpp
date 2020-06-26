@@ -5,6 +5,11 @@
 
 namespace hearts {
 
+	inline bool clamp(double val, double minv, double maxv)
+	{
+	    return (val > maxv)?maxv:(val<minv?minv:val);
+	}
+	
 uint64_t getFullDeck()
 {
 	return ((uint64_t)0x1FFF1FFF<<32)+0x1FFF1FFF;
@@ -2696,7 +2701,8 @@ void HeartsShooter::selectPassCards(int dir, card &a, card &b, card &c)
 	} while ((c == b) && (c == a));
 }
 
-cardProbData iiHeartsState::cpd("/Users/nathanst/Desktop/model.txt");
+cardProbData iiHeartsState::cpd;
+//("/Users/nathanst/Desktop/model.txt");
 
 GameState *iiHeartsState::getGameState(double &prob)
 {
@@ -2916,6 +2922,8 @@ GameState *iiHeartsState::getGameState(double &prob)
 	}
 #endif
 	//printf("Set up new GameSate with %d to move\n", cgs->getNextPlayerNum());
+	if (prob == 0)
+		fprintf(stderr, "Error, returning 0 probability\n");
 	return cgs;
 }
 
@@ -2946,7 +2954,7 @@ double iiHeartsState::GetCardProbability(int who, std::vector<card> passes[],
 	//	for (unsigned int x = 0; x < probs.size(); x++)
 	//		printf("Probability that (Player %d) has %d = %f\n", x, c, probs[x]/sum);
 	
-	return probs[who]/sum;
+	return clamp(probs[who]/sum, 0, 1);
 }
 
 
@@ -2972,7 +2980,7 @@ double iiHeartsState::GetPassProbability(std::vector<card> &passes, std::vector<
 			}
 		}
 	}
-	return prob;
+	return clamp(prob, -10, 1);
 }
 
 // prob(card c | evidence) = exp(ln(prob(c|a))+ ln(prob(c|b))+ ...)
@@ -2993,7 +3001,7 @@ double iiHeartsState::GetProbability(int player, std::vector<card> &newCards, Tr
 		}
 	}
 	
-	return result;
+	return clamp(result, -10, 1);
 	//	std::vector<double> probs;
 	//	probs.resize(64);
 	//	double sum = 0;
@@ -3041,10 +3049,11 @@ double iiHeartsState::GetTrickOdds(int player, Trick &t, int which, Deck &d)
 	//assert(cpd.probGivenLeadAndPlay[t.play[0]][t.play[myPlay]][which] != 0);
 	//	if (cpd.probGivenLeadAndPlay[t.play[0]][t.play[myPlay]][which] == 0)
 	//		return 1e-10;
-	return cpd.probGivenLeadAndPlay[t.play[0]][t.play[myPlay]][which];
+	return clamp(cpd.probGivenLeadAndPlay[t.play[0]][t.play[myPlay]][which], -10, 1);
 }
 
-cardProbData advancedIIHeartsState::cpd("model.txt");
+//cardProbData advancedIIHeartsState::cpd("model.txt");
+cardProbData advancedIIHeartsState::cpd;
 	
 advancedIIHeartsState::advancedIIHeartsState()
 :iiHeartsState()
@@ -3301,6 +3310,8 @@ GameState *advancedIIHeartsState::getGameState(double &prob)
 //	printf("----------------created: prob: %e-------------------\n", prob);
 //	cgs->Print(1);
 	//printf("Set up new GameSate with %d to move\n", cgs->getNextPlayerNum());
+	if (prob == 0)
+		fprintf(stderr, "Error, returning 0 probability\n");
 	return cgs;
 }
 
@@ -3331,7 +3342,7 @@ double advancedIIHeartsState::GetCardProbability(int who, std::vector<card> pass
 //	for (unsigned int x = 0; x < probs.size(); x++)
 //		printf("Probability that (Player %d) has %d = %f\n", x, c, probs[x]/sum);
 
-	return probs[who]/sum;
+	return clamp(probs[who]/sum, -10, 1);
 }
 
 
@@ -3358,7 +3369,7 @@ double advancedIIHeartsState::GetPassProbability(std::vector<card> &passes, std:
 			}
 		}
 	}
-	return prob;
+	return clamp(prob, -10, 1);
 }
 
 // prob(card c | evidence) = exp(ln(prob(c|a))+ ln(prob(c|b))+ ...)
@@ -3382,7 +3393,7 @@ double advancedIIHeartsState::GetProbability(int player, std::vector<card> &newC
 		}
 	}
 
-	return result;
+	return clamp(result, -10, 1);
 //	std::vector<double> probs;
 //	probs.resize(64);
 //	double sum = 0;
@@ -3418,7 +3429,7 @@ double advancedIIHeartsState::GetTrickOdds(int player, Trick &t, int which, Deck
 		//assert (cpd.probGivenLead[t.play[0]][which] != 0);
 //		if (cpd.probGivenLead[t.play[0]][which] == 0)
 //			return 1e-10;
-		return cpd.probGivenLead[t.play[0]][which]*51.0/12.0;
+		return clamp(cpd.probGivenLead[t.play[0]][which]*51.0/12.0, -10, 1);
 	}
 	int myPlay = -1;
 	for (int x = 1; x < t.curr; x++)
@@ -3430,7 +3441,7 @@ double advancedIIHeartsState::GetTrickOdds(int player, Trick &t, int which, Deck
 	//assert(cpd.probGivenLeadAndPlay[t.play[0]][t.play[myPlay]][which] != 0);
 //	if (cpd.probGivenLeadAndPlay[t.play[0]][t.play[myPlay]][which] == 0)
 //		return 1e-10;
-	return cpd.probGivenLeadAndPlay[t.play[0]][t.play[myPlay]][which]*50.0/12.0;
+	return clamp(cpd.probGivenLeadAndPlay[t.play[0]][t.play[myPlay]][which]*50.0/12.0, -10, 1);
 }
 
 
@@ -3640,6 +3651,8 @@ GameState *simpleIIHeartsState::getGameState(double &prob)
 	}
 	
 	//printf("Set up new GameSate with %d to move\n", cgs->getNextPlayerNum());
+	if (prob == 0)
+		fprintf(stderr, "Error, returning 0 probability\n");
 	return cgs;
 }
 

@@ -35,25 +35,28 @@ int main(int argc, char **argv)
 	//rules |= kLead2Clubs; break;
 
 	int p1, p2, p3, p4;
-	p1 = p2 = p3 = p4 = 0;
+	p1 = p2 = 0;
+	p3 = 1;
 	p4 = 2;
 	
 	g->setRules(rules);
 		
 	SimpleHeartsPlayer *p; iiMonteCarlo *a; UCT *b;
+	printf("P1: sims %d\n", sims[p1]/worlds[p1]);
 	game.addPlayer(p = new SafeSimpleHeartsPlayer(a = new iiMonteCarlo(b = new UCT(sims[p1]/worlds[p1], C), worlds[p1])));
 	p->setModelLevel(2);
 	b->setPlayoutModule(new HeartsPlayout());
-	a->setUseThreads(true);
-	game.addPlayer(p = new SafeSimpleHeartsPlayer(a = new iiMonteCarlo(b = new UCT(sims[p2]/worlds[p2], C), worlds[p1])));
+	a->setUseThreads(false);
+	game.addPlayer(p = new SafeSimpleHeartsPlayer(a = new iiMonteCarlo(b = new UCT(sims[p2]/worlds[p2], C), worlds[p2])));
 	p->setModelLevel(2);
 	b->setPlayoutModule(new HeartsPlayout());
 	a->setUseThreads(true);
-	game.addPlayer(p = new SafeSimpleHeartsPlayer(a = new iiMonteCarlo(b = new UCT(sims[p3]/worlds[p3], C), worlds[p1])));
+	game.addPlayer(p = new SafeSimpleHeartsPlayer(a = new iiMonteCarlo(b = new UCT(sims[p3]/worlds[p3], C), worlds[p3])));
 	p->setModelLevel(2);
 	b->setPlayoutModule(new HeartsPlayout());
 	a->setUseThreads(true);
-	game.addPlayer(p = new SafeSimpleHeartsPlayer(a = new iiMonteCarlo(b = new UCT(sims[p4]/worlds[p4], C), worlds[p1])));
+	printf("P4: sims %d/%d=%d\n", sims[p4], worlds[p4], sims[p4]/worlds[p4]);
+	game.addPlayer(p = new SafeSimpleHeartsPlayer(a = new iiMonteCarlo(b = new UCT(sims[p4]/worlds[p4], C), worlds[p4])));
 	p->setModelLevel(2);
 	b->setPlayoutModule(new HeartsPlayout());
 	a->setUseThreads(true);
