@@ -149,6 +149,16 @@ private:
 	mt_random rand;
 };
 
+	class HeartsPlayoutCheckShoot : public UCTModule {
+public:
+	maxnval *DoRandomPlayout(GameState *g, Player *p, double epsilon);
+	Move *DoMinPlay(CardGameState *cgs, bool split, double epsilon);
+	Move *DoMaxPlay(CardGameState *cgs, int me, double epsilon);
+	const char *GetModuleName() { return "HCheckPlayout"; }
+private:
+	mt_random rand;
+};
+
 class SimpleHeartsPlayer : public CardPlayer, HeartsPlayer, public UCTModule {
 public:
 	SimpleHeartsPlayer(Algorithm *alg);//, tScoreUtility u);

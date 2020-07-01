@@ -1827,6 +1827,144 @@ Move *HeartsPlayout::DoMinPlay(CardGameState *cgs, bool split, double epsilon)
 }
 
 
+maxnval *HeartsPlayoutCheckShoot::DoRandomPlayout(GameState *gs, Player *p, double epsilon)
+{
+	//bool shootDanger = false;
+	std::vector<Move *> moves;
+	CardGameState *cgs = (CardGameState *)gs;
+	int havePoints = 0;
+	for (unsigned int x = 0; x < cgs->getNumPlayers(); x++)
+		if (cgs->taken[x].getSuit(HEARTS) || cgs->taken[x].has(SPADES, QUEEN))
+			havePoints++;
+	// first pass, don't think about shooting...
+	while (!cgs->Done())
+	{
+		moves.push_back(DoMinPlay(cgs, (havePoints > 1), epsilon));
+		gs->ApplyMove(moves.back());
+	}
+	maxnval *v = new maxnval();
+	double sum = 0;
+	for (unsigned int x = 0; x < gs->getNumPlayers(); x++)
+		sum+=(26-cgs->score(x));
+	for (unsigned int x = 0; x < gs->getNumPlayers(); x++)
+		v->eval[x] = (26-cgs->score(x))/sum;
+	
+	bool playoutWasShoot = false;
+	int me = gs->getPlayerNum(p);
+	if (cgs->taken[me].getSuit(HEARTS)==0x1FFF && cgs->taken[me].has(SPADES, QUEEN))
+		playoutWasShoot = true;
+	
+	while (moves.size() > 0)
+	{
+		gs->UndoMove(moves.back());
+		gs->freeMove(moves.back());
+		moves.pop_back();
+	}
+	
+	// Did we shoot - do max play instead
+	if (playoutWasShoot)
+	{
+		printf("Re-doing shoot.\n");
+		while (!cgs->Done())
+		{
+			moves.push_back(DoMaxPlay(cgs, me, epsilon));
+			gs->ApplyMove(moves.back());
+		}
+		maxnval *v = new maxnval();
+		double sum = 0;
+		for (unsigned int x = 0; x < gs->getNumPlayers(); x++)
+			sum+=(26-cgs->score(x));
+		for (unsigned int x = 0; x < gs->getNumPlayers(); x++)
+			v->eval[x] = (26-cgs->score(x))/sum;
+		
+		while (moves.size() > 0)
+		{
+			gs->UndoMove(moves.back());
+			gs->freeMove(moves.back());
+			moves.pop_back();
+		}
+
+	}
+
+	return v;
+}
+
+Move *HeartsPlayoutCheckShoot::DoMinPlay(CardGameState *cgs, bool split, double epsilon)
+{
+	if (rand.rand_double() < epsilon) // x% chance of a rand move
+	{
+		return cgs->getRandomMove();
+	}
+	
+	const Trick *trick = cgs->getCurrTrick();
+	card winningCard = trick->WinningCard();
+
+	//	int winner = trick->Winner();
+	if (trick->curr == 0) // trick just taken!
+	{
+		int havePoints = 0;
+		for (unsigned int x = 0; x < cgs->getNumPlayers(); x++)
+			if (cgs->taken[x].getSuit(HEARTS) || cgs->taken[x].has(SPADES, QUEEN))
+				havePoints++;
+		if (havePoints > 1)
+			split = true;
+	}
+	
+	Move *m = cgs->getMoves();
+	Move *best = m;
+	if (winningCard == -1) // leading, play random
+	{
+		double count = 0;
+		for (Move *t = m->next; t; t = t->next)
+		{
+			count += 1;
+			if (rand.rand_double() <= 1/count)
+				best = t;
+		}
+		best = best->clone(cgs);
+		cgs->freeMove(m);
+		return best;
+	}
+	else if (Deck::getsuit(winningCard) == Deck::getsuit(((CardMove*)best)->c)) // follow randomly
+	{
+		double count = 0;
+		for (Move *t = m->next; t; t = t->next)
+		{
+			count += 1;
+			if (rand.rand_double() <= 1/count)
+				best = t;
+		}
+		best = best->clone(cgs);
+		cgs->freeMove(m);
+		return best;
+	}
+	else { // sloughing -- high to low
+		double count = 0;
+		for (Move *t = m->next; t; t = t->next)
+		{
+			count += 1;
+			if (Deck::getcard(SPADES, QUEEN) == ((CardMove*)t)->c)
+			{
+				best = t;
+				break;
+			}
+			
+			if ((rand.rand_double() <= 1/count) || (Deck::getsuit(((CardMove*)t)->c) == HEARTS))
+				best = t;
+		}
+		best = best->clone(cgs);
+		cgs->freeMove(m);
+		return best;
+	}
+	assert(0);
+	return 0;
+}
+
+Move *HeartsPlayoutCheckShoot::DoMaxPlay(CardGameState *cgs, int me, double epsilon)
+{
+	return cgs->getRandomMove();
+}
+
 void HeartsCardPlayer::selectPassCards(int dir, card &a, card &b, card &c)
 {
 	CardGameState *cgs = (CardGameState *)g;
@@ -3306,7 +3444,16 @@ GameState *advancedIIHeartsState::getGameState(double &prob)
 		}
 		assert(count == numCardsPassed);
 	}
-	
+
+	// take out the cards that have already been played
+	for (int x = 0; x < numCards+1; x++)
+	{
+		for (int y = 0; y < t[x].curr; y++)
+		{
+			cgs->cards[t[x].player[y]].clear(t[x].play[y]);
+		}
+	}
+
 //	printf("----------------created: prob: %e-------------------\n", prob);
 //	cgs->Print(1);
 	//printf("Set up new GameSate with %d to move\n", cgs->getNextPlayerNum());
