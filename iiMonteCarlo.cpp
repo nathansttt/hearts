@@ -89,9 +89,13 @@ returnValue *iiMonteCarlo::Play(GameState *g, Player *p)
 
 	// 2. combine the results - only the algorithm knows how to do this.
 	// 3. get the move with the highest expected results
-	//	printf("Analyzing results\n");
+#if _PRINT_
+	printf("Analyzing results\n");
+#endif
 	best = Combine(g, v, g->getPlayerNum(p), probs);
-	//	best->Print(1);
+#if _PRINT_
+	best->Print(1);
+#endif
 	
 	// 4. clean up memory
 	for (int x = 0; x < numModels; x++)
