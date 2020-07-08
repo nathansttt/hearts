@@ -2,19 +2,82 @@
 #include "Game.h"
 #include "Hearts.h"
 #include "iiMonteCarlo.h"
+#include "statistics.h"
 
 using namespace hearts;
 
-int main(int argc, char **argv)
+Player *GetPlayer(int playerType)
 {
-	int sims[3] = {1000, 10000, 100000};
-	int worlds[3] = {20, 30, 50};
+	//int sims[3] = {1000, 10000, 100000};
+	//int worlds[3] = {20, 30, 50};
+
 	double C = 0.4;
+	switch (playerType)
+	{
+	case 0:
+		{
+			int sims = 10000;
+			int worlds = 30;
+			SimpleHeartsPlayer *p; iiMonteCarlo *a; UCT *b;
+			p = new SafeSimpleHeartsPlayer(a = new iiMonteCarlo(b = new UCT(sims/worlds, C), worlds));
+			p->setModelLevel(2);
+			b->setPlayoutModule(new HeartsPlayout());
+			a->setUseThreads(true);
+			b->setEpsilonPlayout(0.1);
+			return p;
+		}
+	case 1:
+		{
+			int sims = 10000;
+			int worlds = 30;
+			SimpleHeartsPlayer *p; iiMonteCarlo *a; UCT *b;
+			p = new SafeSimpleHeartsPlayer(a = new iiMonteCarlo(b = new UCT(sims/worlds, C), worlds));
+			p->setModelLevel(2);
+			b->setPlayoutModule(new HeartsPlayout());
+			a->setUseThreads(true);
+			return p;
+		}
+	default:
+		{
+			int sims = 1000;
+			int worlds = 20;
+			SimpleHeartsPlayer *p; iiMonteCarlo *a; UCT *b;
+			p = new SafeSimpleHeartsPlayer(a = new iiMonteCarlo(b = new UCT(sims/worlds, C), worlds));
+			p->setModelLevel(2);
+			b->setPlayoutModule(new HeartsPlayout());
+			a->setUseThreads(true);
+			return p;
+		}
+
+	}
+	assert(false);
+	return 0;
+}
+
+void PlayGame(statistics &s)
+{
 	srandom(time(NULL));
 	HeartsGameState *g;
 	g = new HeartsGameState(random());
 	HeartsCardGame game(g);
-		
+	//game.setMaxPoints(1);
+	int order[14][4] =
+	{{0, 0, 0, 1},
+	 {0, 0, 1, 0},
+	 {0, 1, 0, 0},
+	 {1, 0, 0, 0},
+	 {0, 0, 1, 1},
+	 {0, 1, 0, 1},
+	 {0, 1, 1, 0},
+	 {1, 0, 0, 1},
+	 {1, 0, 1, 0},
+	 {1, 1, 0, 0},
+	 {1, 1, 1, 0},
+	 {1, 1, 0, 1},
+	 {1, 0, 1, 1},
+	 {0, 1, 1, 1}
+	};
+	
 	int rules=kQueenPenalty;
 	if (0)
 		rules |= kNoTrickBonus;
@@ -34,36 +97,20 @@ int main(int argc, char **argv)
 	rules |= kLeadClubs; //break;
 	//rules |= kLead2Clubs; break;
 
-	int p1, p2, p3, p4;
-	p1 = p2 = 0;
-	p3 = 1;
-	p4 = 2;
-	
 	g->setRules(rules);
-		
-	SimpleHeartsPlayer *p; iiMonteCarlo *a; UCT *b;
-	printf("P1: sims %d\n", sims[p1]/worlds[p1]);
-	game.addPlayer(p = new SafeSimpleHeartsPlayer(a = new iiMonteCarlo(b = new UCT(sims[p1]/worlds[p1], C), worlds[p1])));
-	p->setModelLevel(2);
-	b->setPlayoutModule(new HeartsPlayout());
-	a->setUseThreads(false);
-	game.addPlayer(p = new SafeSimpleHeartsPlayer(a = new iiMonteCarlo(b = new UCT(sims[p2]/worlds[p2], C), worlds[p2])));
-	p->setModelLevel(2);
-	b->setPlayoutModule(new HeartsPlayout());
-	a->setUseThreads(true);
-	game.addPlayer(p = new SafeSimpleHeartsPlayer(a = new iiMonteCarlo(b = new UCT(sims[p3]/worlds[p3], C), worlds[p3])));
-	p->setModelLevel(2);
-	b->setPlayoutModule(new HeartsPlayout());
-	a->setUseThreads(true);
-	printf("P4: sims %d/%d=%d\n", sims[p4], worlds[p4], sims[p4]/worlds[p4]);
-	game.addPlayer(p = new SafeSimpleHeartsPlayer(a = new iiMonteCarlo(b = new UCT(sims[p4]/worlds[p4], C), worlds[p4])));
-	p->setModelLevel(2);
-	b->setPlayoutModule(new HeartsPlayout());
-	a->setUseThreads(true);
-	g->setPassDir(0);
-		
+
+	int org = random()%14;
+	for (int x = 0; x < 4; x++)
+	{
+		int player = order[org][x];
+		SimpleHeartsPlayer *p; iiMonteCarlo *a; UCT *b;
+		game.addPlayer(GetPlayer(order[org][x]));
+	}
+
+	g->setPassDir(0);	
 	game.Play();
 
+	s.collect(&game, g);
 
 	// clean up memory
 	for (int x = 0; x < 4; x++)
@@ -71,4 +118,14 @@ int main(int argc, char **argv)
 	g->deletePlayers();
 	delete g;
 	g = 0;
+}
+
+int main(int argc, char **argv)
+{
+	statistics s;
+	for (int x = 0; x < 100; x++)
+	{
+		PlayGame(s);
+		s.save();
+	}
 }
