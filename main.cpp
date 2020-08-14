@@ -35,6 +35,20 @@ Player *GetPlayer(int playerType)
 			p->setModelLevel(2);
 			b->setPlayoutModule(new HeartsPlayout());
 			a->setUseThreads(true);
+			b->setEpsilonPlayout(0.5);
+			return p;
+		}
+	case 2:
+		{
+			// This player (no epsilon) lost 82.7177 to 73.7906 to the epsilon 0.1 player
+			// Epsilon is needed because of the determism in th playouts
+			int sims = 10000;
+			int worlds = 30;
+			SimpleHeartsPlayer *p; iiMonteCarlo *a; UCT *b;
+			p = new SafeSimpleHeartsPlayer(a = new iiMonteCarlo(b = new UCT(sims/worlds, C), worlds));
+			p->setModelLevel(2);
+			b->setPlayoutModule(new HeartsPlayout());
+			a->setUseThreads(true);
 			return p;
 		}
 	default:
