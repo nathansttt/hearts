@@ -1193,7 +1193,6 @@ Player *SimpleHeartsPlayer::clone() const
 //	return shp;
 }
 
-
 void SimpleHeartsPlayer::selectPassCards(int dir, card &a, card &b, card &c)
 {
 	CardGameState *cgs = (CardGameState *)g;
@@ -1282,7 +1281,7 @@ void SimpleHeartsPlayer::selectPassCards(int dir, card &a, card &b, card &c)
 				cnt--;
 		}
 	}
-	for (int x = Deck::getcard(SPADES, ACE); x <= Deck::getcard(SPADES, TWO); x++)
+	for (int x = ACE; x <= TWO; x++)
 	{
 		if (curr >= 3)
 			break;
@@ -1298,11 +1297,11 @@ void SimpleHeartsPlayer::selectPassCards(int dir, card &a, card &b, card &c)
 			}
 		}
 	}
-	for (int x = Deck::getcard(CLUBS, ACE); x <= Deck::getcard(CLUBS, TWO); x++)
+	for (int x = ACE; x <= TWO; x++)
 	{
 		if (curr >= 3)
 			break;
-		for (int y = 1; y < 3; y++)
+		for (int y = 0; y <= 3; y++)
 		{
 			if (curr >= 3)
 				break;
@@ -1314,22 +1313,7 @@ void SimpleHeartsPlayer::selectPassCards(int dir, card &a, card &b, card &c)
 			}
 		}
 	}
-	for (int x = Deck::getcard(DIAMONDS, ACE); x <= Deck::getcard(DIAMONDS, TWO); x++)
-	{
-		if (curr >= 3)
-			break;
-		for (int y = 1; y < 3; y++)
-		{
-			if (curr >= 3)
-				break;
-			if (cgs->cards[me].has(Deck::getcard(y, x)) && 
-				(drop[0] != Deck::getcard(y, x)) && (drop[1] != Deck::getcard(y, x)))
-			{
-				drop[curr] = Deck::getcard(y, x);
-				curr++;
-			}
-		}
-	}
+	assert(curr==3);
 	a = drop[0];
 	b = drop[1];
 	c = drop[2];
