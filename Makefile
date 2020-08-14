@@ -1,7 +1,7 @@
 appname := hearts
 
 CXX := clang++
-CXXFLAGS := -std=c++11
+CXXFLAGS := -std=c++11 -g -O3
 
 srcfiles := $(shell find . -name "*.cpp")
 objects  := $(patsubst %.cpp, %.o, $(srcfiles))
